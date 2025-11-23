@@ -29,7 +29,7 @@ Include some attractive screenshots of your app to give potential users a visual
 
 **Get Started:**
 
-1. **Clone the repository:** `git clone https://github.com/Hamad-Anwar/Quran-Arion.git`
+1. **Clone the repository:** `git clone https://github.com/null7x/Quran-Arion.git`
 2. **Install dependencies:** `flutter pub get`
 3. **Connect your device or start an emulator.**
 4. **Run the app:** `flutter run`
