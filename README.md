@@ -66,6 +66,29 @@ This project uses the following dependencies:
 
 **Baarak Allahu feek! (May Allah bless you!)**
 
+## About Me
+
+**Developer:** Azizov Aminjon  
+**Contact:** s985225250@gmail.com
+
+I'm a passionate Flutter developer dedicated to creating beautiful and functional Islamic applications. This project represents my commitment to leveraging modern technology to make Islamic resources more accessible to Muslims worldwide.
+
+With expertise in:
+- **Flutter & Dart** development
+- **BLoC** architecture for state management
+- **UI/UX Design** with Islamic aesthetic principles
+- **Audio Processing** and playback systems
+- **SQLite Database** management
+- **Real-time Location Services** and sensor integration
+
+I believe in creating applications that are not just technically sound but also spiritually enriching. This app is a testament to that vision.
+
+**Follow my work:**
+- GitHub: [null7x](https://github.com/null7x)
+- Email: s985225250@gmail.com
+
+For collaboration, feature requests, or technical discussions, feel free to reach out!
+
 
 
 
