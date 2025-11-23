@@ -4,6 +4,13 @@ import 'package:quran_arion/view/home/home_view.dart';
 import 'package:quran_arion/view/quran_books/quran_books_view.dart';
 import 'package:quran_arion/view/qibla_compass/qibla_compass_view.dart';
 import 'package:quran_arion/view/qari_playlists/qari_playlists_view.dart';
+import 'package:quran_arion/view/prayer_times/prayer_times_view.dart';
+import 'package:quran_arion/view/favorites/favorites_view.dart';
+import 'package:quran_arion/view/daily_verse/daily_verse_view.dart';
+import 'package:quran_arion/view/search/search_view.dart';
+import 'package:quran_arion/view/islamic_calendar/islamic_calendar_view.dart';
+import 'package:quran_arion/view/duas/duas_view.dart';
+import 'package:quran_arion/view/user_profile/user_profile_view.dart';
 
 class MainNavigationScreen extends StatefulWidget {
   const MainNavigationScreen({super.key});
@@ -20,6 +27,13 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
     const QariPlaylistsView(),
     const QuranBooksView(),
     const QiblaCompassView(),
+    const PrayerTimesView(),
+    const FavoritesView(),
+    const DailyVerseView(),
+    const SearchView(),
+    const IslamicCalendarView(),
+    const DuasView(),
+    const UserProfileView(),
   ];
 
   @override
@@ -37,23 +51,62 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
         selectedItemColor: blueShade,
         unselectedItemColor: lightShadowColor.withOpacity(0.5),
         elevation: 10,
-        type: BottomNavigationBarType.fixed,
+        type: BottomNavigationBarType.shifting,
         items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.music_note),
             label: 'Recitations',
+            backgroundColor: AppColors.backgroundColor,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
             label: 'Reciters',
+            backgroundColor: AppColors.backgroundColor,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.menu_book),
             label: 'Quran',
+            backgroundColor: AppColors.backgroundColor,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.explore),
             label: 'Qibla',
+            backgroundColor: AppColors.backgroundColor,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.schedule),
+            label: 'Prayers',
+            backgroundColor: AppColors.backgroundColor,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.favorite),
+            label: 'Favorites',
+            backgroundColor: AppColors.backgroundColor,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.auto_awesome),
+            label: 'Verse',
+            backgroundColor: AppColors.backgroundColor,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.search),
+            label: 'Search',
+            backgroundColor: AppColors.backgroundColor,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.calendar_month),
+            label: 'Calendar',
+            backgroundColor: AppColors.backgroundColor,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.hands_free_prayer),
+            label: 'Duas',
+            backgroundColor: AppColors.backgroundColor,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.account_circle),
+            label: 'Profile',
+            backgroundColor: AppColors.backgroundColor,
           ),
         ],
       ),

@@ -8,6 +8,13 @@ import 'package:quran_arion/bloc/player_bloc/player_bloc.dart';
 import 'package:quran_arion/bloc/quran_bloc/quran_bloc.dart';
 import 'package:quran_arion/bloc/qibla_bloc/qibla_bloc.dart';
 import 'package:quran_arion/bloc/qari_playlist_bloc/qari_playlist_bloc.dart';
+import 'package:quran_arion/bloc/prayer_times_bloc/prayer_times_bloc.dart';
+import 'package:quran_arion/bloc/favorites_bloc/favorites_bloc.dart';
+import 'package:quran_arion/bloc/daily_verse_bloc/daily_verse_bloc.dart';
+import 'package:quran_arion/bloc/search_bloc/search_bloc.dart';
+import 'package:quran_arion/bloc/islamic_calendar_bloc/islamic_calendar_bloc.dart';
+import 'package:quran_arion/bloc/duas_bloc/duas_bloc.dart';
+import 'package:quran_arion/bloc/user_profile_bloc/user_profile_bloc.dart';
 import 'package:quran_arion/db_helper/db_helper.dart';
 import 'package:quran_arion/res/app_colors.dart';
 import 'package:quran_arion/view/splash/splash.dart';
@@ -41,6 +48,27 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (_) => QariPlaylistBloc(),
+        ),
+        BlocProvider(
+          create: (_) => PrayerTimesBloc(),
+        ),
+        BlocProvider(
+          create: (_) => FavoritesBloc(),
+        ),
+        BlocProvider(
+          create: (_) => DailyVerseBloc(),
+        ),
+        BlocProvider(
+          create: (_) => SearchBloc(),
+        ),
+        BlocProvider(
+          create: (_) => IslamicCalendarBloc(),
+        ),
+        BlocProvider(
+          create: (_) => DuasBloc(),
+        ),
+        BlocProvider(
+          create: (_) => UserProfileBloc(),
         ),
       ],
       child: MaterialApp(
