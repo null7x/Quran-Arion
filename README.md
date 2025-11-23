@@ -8,6 +8,7 @@ Include some attractive screenshots of your app to give potential users a visual
 
 <img src="demo.png">
 <img src="demo1.png">
+<img src="demo2.png">
 
 **Immerse yourself in the beauty of Quranic recitations with this elegant Islamic app!**
 
