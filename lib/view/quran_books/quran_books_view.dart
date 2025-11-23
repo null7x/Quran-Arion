@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quran_arion/bloc/quran_bloc/quran_bloc.dart';
 import 'package:quran_arion/bloc/player_bloc/player_bloc.dart';
 import 'package:quran_arion/res/app_colors.dart';
+import 'components/quran_now_playing.dart';
 
 class QuranBooksView extends StatefulWidget {
   const QuranBooksView({super.key});
@@ -60,129 +61,138 @@ class _QuranBooksViewState extends State<QuranBooksView> {
                 );
               }
 
-              return ListView.builder(
-                itemCount: state.quranBooks.length,
-                itemBuilder: (context, index) {
-                  final book = state.quranBooks[index];
-                  final surahNumber = index + 1;
-                  final isPlaying = state.playingSurahNumber == surahNumber;
+              return Column(
+                children: [
+                  // Now Playing Widget
+                  const QuranNowPlayingWidget(),
+                  // Quran Books List
+                  Expanded(
+                    child: ListView.builder(
+                      itemCount: state.quranBooks.length,
+                      itemBuilder: (context, index) {
+                        final book = state.quranBooks[index];
+                        final surahNumber = index + 1;
+                        final isPlaying = state.playingSurahNumber == surahNumber;
 
-                  return Container(
-                    margin: const EdgeInsets.only(bottom: 15),
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: isPlaying
-                            ? [blueShade.withOpacity(0.7), blueShade.withOpacity(0.5)]
-                            : [shadowColor, blueBackground],
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                      ),
-                      borderRadius: BorderRadius.circular(15),
-                      boxShadow: [
-                        BoxShadow(
-                          color: isPlaying
-                              ? blueShade.withOpacity(0.5)
-                              : Colors.black.withOpacity(0.2),
-                          blurRadius: 8,
-                          offset: const Offset(0, 4),
-                        ),
-                      ],
-                    ),
-                    child: InkWell(
-                      onTap: () {
-                        if (isPlaying) {
-                          // Stop playing
-                          context.read<QuranBloc>().add(const StopQuranPlaybackEvent());
-                        } else {
-                          // Play Surah
-                          context.read<QuranBloc>().add(
-                            PlayQuranSurahEvent(surahNumber, book),
-                          );
-                          
-                          // Show confirmation
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text('Now playing: $book'),
-                              backgroundColor: blueShade,
-                              duration: const Duration(seconds: 2),
+                        return Container(
+                          margin: const EdgeInsets.only(bottom: 15),
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              colors: isPlaying
+                                  ? [blueShade.withOpacity(0.7), blueShade.withOpacity(0.5)]
+                                  : [shadowColor, blueBackground],
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
                             ),
-                          );
-                        }
-                      },
-                      borderRadius: BorderRadius.circular(15),
-                      child: Padding(
-                        padding: const EdgeInsets.all(20),
-                        child: Row(
-                          children: [
-                            // Surah Number Circle
-                            Container(
-                              width: 60,
-                              height: 60,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: blueShade,
+                            borderRadius: BorderRadius.circular(15),
+                            boxShadow: [
+                              BoxShadow(
+                                color: isPlaying
+                                    ? blueShade.withOpacity(0.5)
+                                    : Colors.black.withOpacity(0.2),
+                                blurRadius: 8,
+                                offset: const Offset(0, 4),
                               ),
-                              child: Center(
-                                child: Text(
-                                  surahNumber.toString(),
-                                  style: TextStyle(
-                                    color: backgroundColor,
-                                    fontSize: 24,
-                                    fontWeight: FontWeight.bold,
+                            ],
+                          ),
+                          child: InkWell(
+                            onTap: () {
+                              if (isPlaying) {
+                                // Stop playing
+                                context.read<QuranBloc>().add(const StopQuranPlaybackEvent());
+                              } else {
+                                // Play Surah
+                                context.read<QuranBloc>().add(
+                                  PlayQuranSurahEvent(surahNumber, book),
+                                );
+                                
+                                // Show confirmation
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text('Now playing: $book'),
+                                    backgroundColor: blueShade,
+                                    duration: const Duration(seconds: 2),
                                   ),
-                                ),
-                              ),
-                            ),
-                            const SizedBox(width: 20),
-                            // Book Name
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                                );
+                              }
+                            },
+                            borderRadius: BorderRadius.circular(15),
+                            child: Padding(
+                              padding: const EdgeInsets.all(20),
+                              child: Row(
                                 children: [
-                                  Text(
-                                    book,
-                                    style: TextStyle(
-                                      color: lightShadowColor,
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold,
+                                  // Surah Number Circle
+                                  Container(
+                                    width: 60,
+                                    height: 60,
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: blueShade,
                                     ),
-                                  ),
-                                  const SizedBox(height: 5),
-                                  Text(
-                                    'Chapter $surahNumber of the Holy Quran',
-                                    style: TextStyle(
-                                      color: lightShadowColor.withOpacity(0.7),
-                                      fontSize: 12,
-                                    ),
-                                  ),
-                                  if (isPlaying)
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 8.0),
+                                    child: Center(
                                       child: Text(
-                                        '▶ Now Playing',
+                                        surahNumber.toString(),
                                         style: TextStyle(
-                                          color: blueShade,
-                                          fontSize: 11,
+                                          color: backgroundColor,
+                                          fontSize: 24,
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
                                     ),
+                                  ),
+                                  const SizedBox(width: 20),
+                                  // Book Name
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          book,
+                                          style: TextStyle(
+                                            color: lightShadowColor,
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        const SizedBox(height: 5),
+                                        Text(
+                                          'Chapter $surahNumber of the Holy Quran',
+                                          style: TextStyle(
+                                            color: lightShadowColor.withOpacity(0.7),
+                                            fontSize: 12,
+                                          ),
+                                        ),
+                                        if (isPlaying)
+                                          Padding(
+                                            padding: const EdgeInsets.only(top: 8.0),
+                                            child: Text(
+                                              '▶ Now Playing',
+                                              style: TextStyle(
+                                                color: blueShade,
+                                                fontSize: 11,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                          ),
+                                      ],
+                                    ),
+                                  ),
+                                  // Play/Stop Icon
+                                  AnimatedIcon(
+                                    icon: AnimatedIcons.play_pause,
+                                    progress: AlwaysStoppedAnimation(isPlaying ? 1.0 : 0.0),
+                                    color: blueShade,
+                                    size: 32,
+                                  ),
                                 ],
                               ),
                             ),
-                            // Play/Stop Icon
-                            AnimatedIcon(
-                              icon: AnimatedIcons.play_pause,
-                              progress: AlwaysStoppedAnimation(isPlaying ? 1.0 : 0.0),
-                              color: blueShade,
-                              size: 32,
-                            ),
-                          ],
-                        ),
-                      ),
+                          ),
+                        );
+                      },
                     ),
-                  );
-                },
+                  ),
+                ],
               );
             },
           ),
