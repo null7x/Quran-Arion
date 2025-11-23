@@ -89,12 +89,48 @@ A comprehensive Islamic Quran application built with Flutter and BLoC state mana
 - Profile update functionality
 - Reset Statistics option
 
-### 9. **Qibla Compass** 🧭 (Existing)
+### 9. **Bookmarks** 📌 (NEW)
+- Save favorite verses for quick access
+- Add notes to bookmarks
+- Edit and update bookmark notes
+- Remove bookmarks
+- Date tracking for saved verses
+- Surah and Ayah number tracking
+
+### 10. **Settings** ⚙️ (NEW)
+- **Appearance**:
+  - Dark/Light theme toggle
+  - Font size adjustment (12-24)
+- **Language**:
+  - English, Russian, Arabic
+  - Language selection dropdown
+- **Notifications**:
+  - Prayer notifications toggle
+  - Prayer time reminders
+- **Application Info**:
+  - Version display
+  - About section
+
+### 11. **Statistics Dashboard** 📊 (NEW)
+- **Main Metrics**:
+  - Total listening hours
+  - Total Surahs listened
+  - Current listening streak
+  - Best streak record
+- **Activity Tracking**:
+  - Last 7 days activity bar chart
+  - Daily listening minutes
+- **Top Surahs**:
+  - Most listened Surahs
+  - Play count per Surah
+  - Top 5 most played
+
+### 12. **Qibla Compass** 🧭 (Existing)
 - Direction to Kaaba calculation
 - Visual compass display
 - Real-time orientation tracking
 
-### 10. **Qari Playlists** 🎤 (Existing)
+### 13. **Qari Playlists** 🎤 (Existing)
 - 8 Famous Reciters:
   - Abdul Basit Abdus Samad
   - Abdulrahman As-Sudais
@@ -121,9 +157,12 @@ Each feature uses BLoC (Business Logic Component) pattern with:
 5. `IslamicCalendarBloc` - Calendar conversion and holidays
 6. `DuasBloc` - Duas management and filtering
 7. `UserProfileBloc` - User profile management
+8. `BookmarksBloc` - Bookmark management (NEW)
+9. `SettingsBloc` - Application settings (NEW)
+10. `StatisticsBloc` - Statistics tracking (NEW)
 
 ### Navigation Structure
-- `MainNavigationScreen` with 11 bottom navigation tabs
+- `MainNavigationScreen` with 14 bottom navigation tabs
 - Each tab corresponds to a feature view
 - Shifting navigation bar (BottomNavigationBarType.shifting)
 
@@ -156,6 +195,9 @@ Each feature uses BLoC (Business Logic Component) pattern with:
 | 9 | Calendar | calendar_month | Islamic calendar |
 | 10 | Duas | hands_free_prayer | Islamic supplications |
 | 11 | Profile | account_circle | User profile & stats |
+| 12 | Bookmarks | bookmark | Bookmarked verses |
+| 13 | Stats | bar_chart | Statistics dashboard |
+| 14 | Settings | settings | Application settings |
 
 ## 📦 Dependencies
 - `flutter_bloc` - BLoC pattern implementation
@@ -175,7 +217,10 @@ lib/
 │   ├── search_bloc/
 │   ├── islamic_calendar_bloc/
 │   ├── duas_bloc/
-│   └── user_profile_bloc/
+│   ├── user_profile_bloc/
+│   ├── bookmarks_bloc/ (NEW)
+│   ├── settings_bloc/ (NEW)
+│   └── statistics_bloc/ (NEW)
 ├── view/
 │   ├── prayer_times/
 │   ├── favorites/
@@ -183,7 +228,10 @@ lib/
 │   ├── search/
 │   ├── islamic_calendar/
 │   ├── duas/
-│   └── user_profile/
+│   ├── user_profile/
+│   ├── bookmarks/ (NEW)
+│   ├── settings/ (NEW)
+│   └── statistics/ (NEW)
 └── main.dart (Updated with all BLoCs)
 ```
 
@@ -194,22 +242,26 @@ lib/
 
 ## 🚀 Future Enhancements
 - Backend integration for real prayer times calculation
-- Database persistence for favorites
+- Database persistence for favorites and bookmarks
 - User authentication and cloud sync
-- More Duas and Islamic content
-- Advanced statistics tracking
+- More Duas and Islamic content (200+)
+- Advanced statistics tracking with graphs
 - Offline Quran text display
-- Dark/Light theme toggle
-- Multiple language support
+- Dark/Light theme toggle (Implemented)
+- Multiple language support (Foundation laid)
+- Hadith collection
+- Tafseer (Quran interpretation)
+- Islamic knowledge quiz
 
 ## ✅ Status
 All features successfully implemented and integrated with:
 - Complete BLoC pattern architecture
 - Consistent UI/UX design
 - Islamic color theme
-- 11 fully functional tabs
+- 14 fully functional tabs
 - Ready for build and deployment
 
 ---
-**Last Updated**: Post-completion of all features
-**Version**: 1.0.0-complete
+**Last Updated**: Post-expansion with Settings, Bookmarks, and Statistics
+**Version**: 1.1.0-enhanced
+
