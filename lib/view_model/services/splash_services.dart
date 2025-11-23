@@ -2,14 +2,14 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:quran_arion/utils/utils.dart';
-import 'package:quran_arion/view/home/home_view.dart';
+import 'package:quran_arion/view/main_navigation_screen.dart';
 import 'package:permission_handler/permission_handler.dart';
 class SplashServices{
   static isFirstTime({required BuildContext context})async{
     bool permission=await Utils.requestPermission();
     Timer(const Duration(milliseconds: 1500), () async {
       if(permission){
-        Utils.go(context: context, screen: const HomeView(),replace: true);
+        Utils.go(context: context, screen: const MainNavigationScreen(),replace: true);
       }else{
         await openAppSettings();
       }
@@ -20,7 +20,7 @@ class SplashServices{
     // final check=pref.getBool('OPENED') ?? false;
     // Timer(const Duration(seconds: 2), () {
     //   if(check){
-    //     Utils.go(context: context, screen: const HomeView(),replace: true);
+    //     Utils.go(context: context, screen: const MainNavigationScreen(),replace: true);
     //   }else{
     //     Utils.go(context: context, screen: const OnBoarding(),replace: true);
     //   }
