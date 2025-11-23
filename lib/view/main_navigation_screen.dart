@@ -14,6 +14,14 @@ import 'package:quran_arion/view/user_profile/user_profile_view.dart';
 import 'package:quran_arion/view/settings/settings_view.dart';
 import 'package:quran_arion/view/bookmarks/bookmarks_view.dart';
 import 'package:quran_arion/view/statistics/statistics_view.dart';
+import 'package:quran_arion/view/hadith/hadith_view.dart';
+import 'package:quran_arion/view/tafseer/tafseer_view.dart';
+import 'package:quran_arion/view/quiz/quiz_view.dart';
+import 'package:quran_arion/view/notifications/notifications_view.dart';
+import 'package:quran_arion/view/offline/offline_view.dart';
+import 'package:quran_arion/view/articles/articles_view.dart';
+import 'package:quran_arion/view/tasbeeh/tasbeeh_view.dart';
+import 'package:quran_arion/view/sharing/sharing_view.dart';
 
 class MainNavigationScreen extends StatefulWidget {
   const MainNavigationScreen({super.key});
@@ -40,6 +48,14 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
     const BookmarksView(),
     const StatisticsView(),
     const SettingsView(),
+    const HadithView(),
+    const TafseerView(),
+    const QuizView(),
+    const NotificationsView(),
+    const OfflineView(),
+    const ArticlesView(),
+    const TasbeehView(),
+    const SharingView(),
   ];
 
   @override
@@ -53,6 +69,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
             _selectedIndex = index;
           });
         },
+        type: BottomNavigationBarType.fixed,
         backgroundColor: shadowColor,
         selectedItemColor: blueShade,
         unselectedItemColor: lightShadowColor.withOpacity(0.5),
@@ -119,6 +136,55 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
             label: 'Bookmarks',
             backgroundColor: AppColors.backgroundColor,
           ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.bar_chart),
+            label: 'Stats',
+            backgroundColor: AppColors.backgroundColor,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings),
+            label: 'Settings',
+            backgroundColor: AppColors.backgroundColor,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.note),
+            label: 'Hadith',
+            backgroundColor: AppColors.backgroundColor,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.book),
+            label: 'Tafseer',
+            backgroundColor: AppColors.backgroundColor,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.quiz),
+            label: 'Quiz',
+            backgroundColor: AppColors.backgroundColor,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.notifications),
+            label: 'Notify',
+            backgroundColor: AppColors.backgroundColor,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.cloud_download),
+            label: 'Offline',
+            backgroundColor: AppColors.backgroundColor,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.article),
+            label: 'Articles',
+            backgroundColor: AppColors.backgroundColor,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.beenhere),
+            label: 'Tasbeeh',
+            backgroundColor: AppColors.backgroundColor,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.group),
+            label: 'Share',
+            backgroundColor: AppColors.backgroundColor,
           BottomNavigationBarItem(
             icon: Icon(Icons.bar_chart),
             label: 'Stats',

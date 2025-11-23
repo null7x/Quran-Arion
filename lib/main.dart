@@ -18,6 +18,14 @@ import 'package:quran_arion/bloc/user_profile_bloc/user_profile_bloc.dart';
 import 'package:quran_arion/bloc/settings_bloc/settings_bloc.dart';
 import 'package:quran_arion/bloc/bookmarks_bloc/bookmarks_bloc.dart';
 import 'package:quran_arion/bloc/statistics_bloc/statistics_bloc.dart';
+import 'package:quran_arion/bloc/hadith_bloc/hadith_bloc.dart';
+import 'package:quran_arion/bloc/tafseer_bloc/tafseer_bloc.dart';
+import 'package:quran_arion/bloc/quiz_bloc/quiz_bloc.dart';
+import 'package:quran_arion/bloc/notification_bloc/notification_bloc.dart';
+import 'package:quran_arion/bloc/offline_mode_bloc/offline_bloc.dart';
+import 'package:quran_arion/bloc/articles_bloc/articles_bloc.dart';
+import 'package:quran_arion/bloc/tasbeeh_bloc/tasbeeh_bloc.dart';
+import 'package:quran_arion/bloc/sharing_bloc/sharing_bloc.dart';
 import 'package:quran_arion/db_helper/db_helper.dart';
 import 'package:quran_arion/res/app_colors.dart';
 import 'package:quran_arion/view/splash/splash.dart';
@@ -81,6 +89,30 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (_) => StatisticsBloc(),
+        ),
+        BlocProvider(
+          create: (_) => HadithBloc(),
+        ),
+        BlocProvider(
+          create: (_) => TafseerBloc(),
+        ),
+        BlocProvider(
+          create: (_) => QuizBloc(),
+        ),
+        BlocProvider(
+          create: (_) => NotificationBloc(),
+        ),
+        BlocProvider(
+          create: (_) => OfflineModeBloc(),
+        ),
+        BlocProvider(
+          create: (_) => ArticlesBloc(),
+        ),
+        BlocProvider(
+          create: (_) => TasbeehBloc(),
+        ),
+        BlocProvider(
+          create: (_) => SharingBloc(),
         ),
       ],
       child: MaterialApp(
