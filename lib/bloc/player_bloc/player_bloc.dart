@@ -4,8 +4,8 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
-import 'package:music/db_helper/db_helper.dart';
-import 'package:music/model/audio_file_model.dart';
+import 'package:quran_arion/db_helper/db_helper.dart';
+import 'package:quran_arion/model/audio_file_model.dart';
 
 part 'player_event.dart';
 part 'player_state.dart';

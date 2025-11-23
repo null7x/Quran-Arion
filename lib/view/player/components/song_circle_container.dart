@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:music/bloc/player_bloc/player_bloc.dart';
-import 'package:music/model/audio_file_model.dart';
+import 'package:quran_arion/bloc/player_bloc/player_bloc.dart';
+import 'package:quran_arion/model/audio_file_model.dart';
 
 import '../../../res/app_colors.dart';
 import '../../../res/app_svg.dart';

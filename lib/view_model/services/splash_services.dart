@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:music/utils/utils.dart';
-import 'package:music/view/home/home_view.dart';
+import 'package:quran_arion/utils/utils.dart';
+import 'package:quran_arion/view/home/home_view.dart';
 import 'package:permission_handler/permission_handler.dart';
 class SplashServices{
   static isFirstTime({required BuildContext context})async{

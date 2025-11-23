@@ -3,12 +3,12 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:music/bloc/home_bloc/home_bloc.dart';
-import 'package:music/bloc/home_bloc/home_state.dart';
-import 'package:music/res/app_colors.dart';
-import 'package:music/res/app_svg.dart';
-import 'package:music/utils/utils.dart';
-import 'package:music/view/player/player.dart';
+import 'package:quran_arion/bloc/home_bloc/home_bloc.dart';
+import 'package:quran_arion/bloc/home_bloc/home_state.dart';
+import 'package:quran_arion/res/app_colors.dart';
+import 'package:quran_arion/res/app_svg.dart';
+import 'package:quran_arion/utils/utils.dart';
+import 'package:quran_arion/view/player/player.dart';
 import 'package:shimmer_effect/shimmer_effect.dart';
 
 import '../../../bloc/player_bloc/player_bloc.dart';

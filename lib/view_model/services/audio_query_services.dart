@@ -2,7 +2,7 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:just_audio/just_audio.dart';
-import 'package:music/model/audio_file_model.dart';
+import 'package:quran_arion/model/audio_file_model.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:path/path.dart' as path;
 

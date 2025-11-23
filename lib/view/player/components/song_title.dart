@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:music/model/audio_file_model.dart';
+import 'package:quran_arion/model/audio_file_model.dart';
 
 import '../../../res/app_colors.dart';
 

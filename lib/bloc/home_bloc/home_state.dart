@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:music/model/audio_file_model.dart';
+import 'package:quran_arion/model/audio_file_model.dart';
 enum Status{loading,complete}
 class HomeState extends Equatable {
   final List<AudioFile> songList;

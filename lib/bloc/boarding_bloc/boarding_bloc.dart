@@ -1,9 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:music/bloc/boarding_bloc/boarding_event.dart';
-import 'package:music/bloc/boarding_bloc/boarding_state.dart';
-import 'package:music/utils/utils.dart';
-import 'package:music/view/home/home_view.dart';
+import 'package:quran_arion/bloc/boarding_bloc/boarding_event.dart';
+import 'package:quran_arion/bloc/boarding_bloc/boarding_state.dart';
+import 'package:quran_arion/utils/utils.dart';
+import 'package:quran_arion/view/home/home_view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class BoardingBLoc extends Bloc<BoardingEvent,BoardingState>{

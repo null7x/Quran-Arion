@@ -2,11 +2,11 @@ import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:music/bloc/home_bloc/home_event.dart';
-import 'package:music/bloc/home_bloc/home_state.dart';
-import 'package:music/db_helper/db_helper.dart';
-import 'package:music/model/audio_file_model.dart';
-import 'package:music/view_model/services/audio_query_services.dart';
+import 'package:quran_arion/bloc/home_bloc/home_event.dart';
+import 'package:quran_arion/bloc/home_bloc/home_state.dart';
+import 'package:quran_arion/db_helper/db_helper.dart';
+import 'package:quran_arion/model/audio_file_model.dart';
+import 'package:quran_arion/view_model/services/audio_query_services.dart';
 
 class HomeBloc extends Bloc<HomeEvents,HomeState>{
  final List<AudioFile> songList=[];

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:music/model/audio_file_model.dart';
-import 'package:music/res/app_svg.dart';
-import 'package:music/view/common_widget/app_bar.dart';
-import 'package:music/view/player/components/song_bottom_contianer.dart';
-import 'package:music/view/player/components/song_controllers.dart';
-import 'package:music/view/player/components/song_title.dart';
+import 'package:quran_arion/model/audio_file_model.dart';
+import 'package:quran_arion/res/app_svg.dart';
+import 'package:quran_arion/view/common_widget/app_bar.dart';
+import 'package:quran_arion/view/player/components/song_bottom_contianer.dart';
+import 'package:quran_arion/view/player/components/song_controllers.dart';
+import 'package:quran_arion/view/player/components/song_title.dart';
 
 import 'components/song_circle_container.dart';
 class Player extends StatelessWidget {

@@ -2,11 +2,11 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:music/bloc/boarding_bloc/boarding_bloc.dart';
-import 'package:music/bloc/boarding_bloc/boarding_event.dart';
-import 'package:music/view/onBoarding/components/first_page.dart';
-import 'package:music/view/onBoarding/components/second_page.dart';
-import 'package:music/view/onBoarding/components/third_page.dart';
+import 'package:quran_arion/bloc/boarding_bloc/boarding_bloc.dart';
+import 'package:quran_arion/bloc/boarding_bloc/boarding_event.dart';
+import 'package:quran_arion/view/onBoarding/components/first_page.dart';
+import 'package:quran_arion/view/onBoarding/components/second_page.dart';
+import 'package:quran_arion/view/onBoarding/components/third_page.dart';
 
 class OnBoarding extends StatelessWidget {
   const OnBoarding({super.key});

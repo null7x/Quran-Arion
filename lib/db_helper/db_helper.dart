@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:music/model/audio_file_model.dart';
+import 'package:quran_arion/model/audio_file_model.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';

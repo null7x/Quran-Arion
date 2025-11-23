@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:music/bloc/album_bloc/album_bloc.dart';
-import 'package:music/bloc/home_bloc/home_event.dart';
-import 'package:music/view/common_widget/app_bar.dart';
-import 'package:music/view/common_widget/loading_files.dart';
-import 'package:music/view/home/components/home_top_box.dart';
-import 'package:music/view/home/components/recently_played_list.dart';
-import 'package:music/view/home/components/songs.dart';
+import 'package:quran_arion/bloc/album_bloc/album_bloc.dart';
+import 'package:quran_arion/bloc/home_bloc/home_event.dart';
+import 'package:quran_arion/view/common_widget/app_bar.dart';
+import 'package:quran_arion/view/common_widget/loading_files.dart';
+import 'package:quran_arion/view/home/components/home_top_box.dart';
+import 'package:quran_arion/view/home/components/recently_played_list.dart';
+import 'package:quran_arion/view/home/components/songs.dart';
 
 import '../../bloc/home_bloc/home_bloc.dart';
 import '../../bloc/home_bloc/home_state.dart';

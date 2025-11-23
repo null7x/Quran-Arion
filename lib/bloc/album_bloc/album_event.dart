@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:music/bloc/home_bloc/home_state.dart';
+import 'package:quran_arion/bloc/home_bloc/home_state.dart';
 
 abstract class AlbumEvent extends Equatable{
   @override

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:layout_pro/responsive_layout.dart';
-import 'package:music/view/home/components/song_list_home.dart';
+import 'package:quran_arion/view/home/components/song_list_home.dart';
 
 import '../../../bloc/album_bloc/album_bloc.dart';
 import '../../../bloc/album_bloc/album_event.dart';

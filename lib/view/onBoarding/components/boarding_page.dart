@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:music/bloc/boarding_bloc/boarding_bloc.dart';
-import 'package:music/bloc/boarding_bloc/boarding_state.dart';
+import 'package:quran_arion/bloc/boarding_bloc/boarding_bloc.dart';
+import 'package:quran_arion/bloc/boarding_bloc/boarding_state.dart';
 
 import '../../../res/app_colors.dart';
 

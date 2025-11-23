@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
-import 'package:music/bloc/home_bloc/home_state.dart';
-import 'package:music/model/audio_file_model.dart';
+import 'package:quran_arion/bloc/home_bloc/home_state.dart';
+import 'package:quran_arion/model/audio_file_model.dart';
 
 abstract class HomeEvents extends Equatable{
   @override
