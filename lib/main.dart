@@ -15,6 +15,9 @@ import 'package:quran_arion/bloc/search_bloc/search_bloc.dart';
 import 'package:quran_arion/bloc/islamic_calendar_bloc/islamic_calendar_bloc.dart';
 import 'package:quran_arion/bloc/duas_bloc/duas_bloc.dart';
 import 'package:quran_arion/bloc/user_profile_bloc/user_profile_bloc.dart';
+import 'package:quran_arion/bloc/settings_bloc/settings_bloc.dart';
+import 'package:quran_arion/bloc/bookmarks_bloc/bookmarks_bloc.dart';
+import 'package:quran_arion/bloc/statistics_bloc/statistics_bloc.dart';
 import 'package:quran_arion/db_helper/db_helper.dart';
 import 'package:quran_arion/res/app_colors.dart';
 import 'package:quran_arion/view/splash/splash.dart';
@@ -69,6 +72,15 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (_) => UserProfileBloc(),
+        ),
+        BlocProvider(
+          create: (_) => SettingsBloc(),
+        ),
+        BlocProvider(
+          create: (_) => BookmarksBloc(),
+        ),
+        BlocProvider(
+          create: (_) => StatisticsBloc(),
         ),
       ],
       child: MaterialApp(

@@ -11,6 +11,9 @@ import 'package:quran_arion/view/search/search_view.dart';
 import 'package:quran_arion/view/islamic_calendar/islamic_calendar_view.dart';
 import 'package:quran_arion/view/duas/duas_view.dart';
 import 'package:quran_arion/view/user_profile/user_profile_view.dart';
+import 'package:quran_arion/view/settings/settings_view.dart';
+import 'package:quran_arion/view/bookmarks/bookmarks_view.dart';
+import 'package:quran_arion/view/statistics/statistics_view.dart';
 
 class MainNavigationScreen extends StatefulWidget {
   const MainNavigationScreen({super.key});
@@ -34,6 +37,9 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
     const IslamicCalendarView(),
     const DuasView(),
     const UserProfileView(),
+    const BookmarksView(),
+    const StatisticsView(),
+    const SettingsView(),
   ];
 
   @override
@@ -106,6 +112,21 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
           BottomNavigationBarItem(
             icon: Icon(Icons.account_circle),
             label: 'Profile',
+            backgroundColor: AppColors.backgroundColor,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.bookmark),
+            label: 'Bookmarks',
+            backgroundColor: AppColors.backgroundColor,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.bar_chart),
+            label: 'Stats',
+            backgroundColor: AppColors.backgroundColor,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings),
+            label: 'Settings',
             backgroundColor: AppColors.backgroundColor,
           ),
         ],
