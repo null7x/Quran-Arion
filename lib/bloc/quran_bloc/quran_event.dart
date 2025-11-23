@@ -16,8 +16,25 @@ class GetQuranBooksEvent extends QuranEvent {
 
 class SelectQuranBookEvent extends QuranEvent {
   final String bookName;
-  const SelectQuranBookEvent(this.bookName);
+  final int surahNumber;
+  const SelectQuranBookEvent(this.bookName, this.surahNumber);
 
   @override
-  List<Object> get props => [bookName];
+  List<Object> get props => [bookName, surahNumber];
+}
+
+class PlayQuranSurahEvent extends QuranEvent {
+  final int surahNumber;
+  final String surahName;
+  const PlayQuranSurahEvent(this.surahNumber, this.surahName);
+
+  @override
+  List<Object> get props => [surahNumber, surahName];
+}
+
+class StopQuranPlaybackEvent extends QuranEvent {
+  const StopQuranPlaybackEvent();
+
+  @override
+  List<Object> get props => [];
 }

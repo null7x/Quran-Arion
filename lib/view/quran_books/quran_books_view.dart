@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quran_arion/bloc/quran_bloc/quran_bloc.dart';
+import 'package:quran_arion/bloc/player_bloc/player_bloc.dart';
 import 'package:quran_arion/res/app_colors.dart';
 
 class QuranBooksView extends StatefulWidget {
@@ -64,22 +65,24 @@ class _QuranBooksViewState extends State<QuranBooksView> {
                 itemBuilder: (context, index) {
                   final book = state.quranBooks[index];
                   final surahNumber = index + 1;
+                  final isPlaying = state.playingSurahNumber == surahNumber;
 
                   return Container(
                     margin: const EdgeInsets.only(bottom: 15),
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
-                        colors: [
-                          shadowColor,
-                          blueBackground,
-                        ],
+                        colors: isPlaying
+                            ? [blueShade.withOpacity(0.7), blueShade.withOpacity(0.5)]
+                            : [shadowColor, blueBackground],
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
                       ),
                       borderRadius: BorderRadius.circular(15),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.black.withOpacity(0.2),
+                          color: isPlaying
+                              ? blueShade.withOpacity(0.5)
+                              : Colors.black.withOpacity(0.2),
                           blurRadius: 8,
                           offset: const Offset(0, 4),
                         ),
@@ -87,16 +90,24 @@ class _QuranBooksViewState extends State<QuranBooksView> {
                     ),
                     child: InkWell(
                       onTap: () {
-                        context
-                            .read<QuranBloc>()
-                            .add(SelectQuranBookEvent(book));
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text('Selected: $book'),
-                            backgroundColor: blueShade,
-                            duration: const Duration(seconds: 1),
-                          ),
-                        );
+                        if (isPlaying) {
+                          // Stop playing
+                          context.read<QuranBloc>().add(const StopQuranPlaybackEvent());
+                        } else {
+                          // Play Surah
+                          context.read<QuranBloc>().add(
+                            PlayQuranSurahEvent(surahNumber, book),
+                          );
+                          
+                          // Show confirmation
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text('Now playing: $book'),
+                              backgroundColor: blueShade,
+                              duration: const Duration(seconds: 2),
+                            ),
+                          );
+                        }
                       },
                       borderRadius: BorderRadius.circular(15),
                       child: Padding(
@@ -144,12 +155,25 @@ class _QuranBooksViewState extends State<QuranBooksView> {
                                       fontSize: 12,
                                     ),
                                   ),
+                                  if (isPlaying)
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 8.0),
+                                      child: Text(
+                                        '▶ Now Playing',
+                                        style: TextStyle(
+                                          color: blueShade,
+                                          fontSize: 11,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
                                 ],
                               ),
                             ),
-                            // Play Icon
-                            Icon(
-                              Icons.play_circle_outlined,
+                            // Play/Stop Icon
+                            AnimatedIcon(
+                              icon: AnimatedIcons.play_pause,
+                              progress: AlwaysStoppedAnimation(isPlaying ? 1.0 : 0.0),
                               color: blueShade,
                               size: 32,
                             ),
