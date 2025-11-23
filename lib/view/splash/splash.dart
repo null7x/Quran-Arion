@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quran_arion/bloc/album_bloc/album_bloc.dart';
 import 'package:quran_arion/bloc/album_bloc/album_event.dart';
+import 'package:quran_arion/res/app_colors.dart';
 import 'package:quran_arion/res/app_icons.dart';
 import 'package:quran_arion/view/common_widget/soft_button.dart';
 
@@ -23,6 +24,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: backgroundColor,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -34,14 +36,20 @@ class _SplashScreenState extends State<SplashScreen> {
               icon: Container(
                 margin: const EdgeInsets.all(5),
                 child: Center(
-                  child: Icon(Icons.play_arrow_rounded,color: Colors.blue,size: 60,),
+                  child: Icon(Icons.menu_book_rounded, color: blueShade, size: 60,),
                 ),
               ),
             ),
-            Text('Music',style: TextStyle(
-              color: Colors.blue,
+            SizedBox(height: 20),
+            Text('Quran-Arion', style: TextStyle(
+              color: blueShade,
               fontWeight: FontWeight.bold,
               fontSize: 30
+            ),),
+            SizedBox(height: 10),
+            Text('Islamic Quran Recitation App', style: TextStyle(
+              color: lightShadowColor,
+              fontSize: 14
             ),)
           ],
         ),

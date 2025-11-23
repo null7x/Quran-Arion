@@ -1,6 +1,6 @@
-# Flutter Music App with BLoC
+# Quran-Arion - Islamic Quran Recitation App
 
-A Flutter music streaming application that allows users to play audio files from local storage. The app features a beautiful neumorphic UI design and provides a smooth user experience for browsing and playing music.
+A beautiful Flutter application for listening to Quran recitations by renowned Quranic scholars. The app provides high-quality Islamic audio content with an elegant interface designed for Muslim users seeking spiritual enrichment.
 
 ## Screenshots
 
@@ -9,15 +9,16 @@ Include some attractive screenshots of your app to give potential users a visual
 <img src="demo.png">
 <img src="demo1.png">
 
-**Immerse yourself in your music with this beautiful and intuitive Flutter app!**
+**Immerse yourself in the beauty of Quranic recitations with this elegant Islamic app!**
 
 **Features:**
 
-* **Effortless browsing:** Explore your music library with ease.
-* **Stunning design:** Experience a captivating neumorphic UI.
-* **Seamless playback:** Enjoy smooth audio control and playback.
-* **Personalized favorites:** Create playlists and mark your favorites for quick access.
-* **Responsive experience:** BLoC ensures a fluid and reactive app.
+* **Effortless browsing:** Explore Quran recitations by different scholars easily.
+* **Stunning Islamic design:** Experience an elegant interface inspired by Islamic aesthetics.
+* **Seamless playback:** Enjoy smooth audio control and Quran recitation playback.
+* **Personalized favorites:** Create playlists and mark your favorite Surahs for quick access.
+* **Responsive experience:** BLoC ensures a fluid and reactive user interface.
+* **High-quality audio:** Professional Quranic recitations from renowned Qaris (reciters).
 
 **Key Technologies:**
 
@@ -57,12 +58,13 @@ This project uses the following dependencies:
 * **Report bugs or share ideas:** Submit pull requests or open issues.
 * **Join the community:** Get updates and engage with other developers.
 
-**Spread the Music:**
+**Share the Quran:**
 
 * **Star the project on GitHub if you like it!**
-* **Share with your friends and music lovers.**
+* **Share with your friends and fellow Muslims.**
+* **Help spread the word of Allah (Quran) to more people.**
 
-**Let the music flow!**
+**Baarak Allahu feek! (May Allah bless you!)**
 
 
 

@@ -1,3 +1,4 @@
 class AppIcons{
-  static const splashIcons='assets/icons/splashIcon.png';
+  // Islamic Quran App Icons
+  static const splashIcons='assets/icons/quran_icon.png'; // Quran/Mosque Icon
 }

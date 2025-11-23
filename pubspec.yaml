@@ -1,5 +1,5 @@
 name: quran_arion
-description: "Quran-Arion - Islamic Audio Application."
+description: "Quran-Arion - A beautiful Islamic Quran recitation application with high-quality audio and enhanced user experience for Muslim listeners."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev

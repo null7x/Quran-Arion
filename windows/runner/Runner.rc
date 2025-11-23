@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "com.dev" "\0"
-            VALUE "FileDescription", "music" "\0"
+            VALUE "FileDescription", "Quran-Arion" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "music" "\0"
+            VALUE "InternalName", "quran_arion" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2024 com.dev. All rights reserved." "\0"
-            VALUE "OriginalFilename", "music.exe" "\0"
-            VALUE "ProductName", "music" "\0"
+            VALUE "OriginalFilename", "quran_arion.exe" "\0"
+            VALUE "ProductName", "Quran-Arion" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END
