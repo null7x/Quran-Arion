@@ -3,6 +3,7 @@ import 'package:quran_arion/res/app_colors.dart';
 import 'package:quran_arion/view/home/home_view.dart';
 import 'package:quran_arion/view/quran_books/quran_books_view.dart';
 import 'package:quran_arion/view/qibla_compass/qibla_compass_view.dart';
+import 'package:quran_arion/view/qari_playlists/qari_playlists_view.dart';
 
 class MainNavigationScreen extends StatefulWidget {
   const MainNavigationScreen({super.key});
@@ -16,6 +17,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
 
   final List<Widget> _screens = [
     const HomeView(),
+    const QariPlaylistsView(),
     const QuranBooksView(),
     const QiblaCompassView(),
   ];
@@ -35,18 +37,23 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
         selectedItemColor: blueShade,
         unselectedItemColor: lightShadowColor.withOpacity(0.5),
         elevation: 10,
+        type: BottomNavigationBarType.fixed,
         items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.music_note),
             label: 'Recitations',
           ),
           BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Reciters',
+          ),
+          BottomNavigationBarItem(
             icon: Icon(Icons.menu_book),
-            label: 'Quran Books',
+            label: 'Quran',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.explore),
-            label: 'Qibla Compass',
+            label: 'Qibla',
           ),
         ],
       ),
