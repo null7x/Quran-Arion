@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:quran_arion/res/app_colors.dart';
 import 'package:quran_arion/view/home/home_view.dart';
 import 'package:quran_arion/view/quran_books/quran_books_view.dart';
+import 'package:quran_arion/view/qibla_compass/qibla_compass_view.dart';
 
 class MainNavigationScreen extends StatefulWidget {
   const MainNavigationScreen({super.key});
@@ -16,6 +17,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
   final List<Widget> _screens = [
     const HomeView(),
     const QuranBooksView(),
+    const QiblaCompassView(),
   ];
 
   @override
@@ -41,6 +43,10 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
           BottomNavigationBarItem(
             icon: Icon(Icons.menu_book),
             label: 'Quran Books',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.explore),
+            label: 'Qibla Compass',
           ),
         ],
       ),

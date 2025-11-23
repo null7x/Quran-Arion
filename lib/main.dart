@@ -6,6 +6,7 @@ import 'package:quran_arion/bloc/boarding_bloc/boarding_bloc.dart';
 import 'package:quran_arion/bloc/home_bloc/home_bloc.dart';
 import 'package:quran_arion/bloc/player_bloc/player_bloc.dart';
 import 'package:quran_arion/bloc/quran_bloc/quran_bloc.dart';
+import 'package:quran_arion/bloc/qibla_bloc/qibla_bloc.dart';
 import 'package:quran_arion/db_helper/db_helper.dart';
 import 'package:quran_arion/res/app_colors.dart';
 import 'package:quran_arion/view/splash/splash.dart';
@@ -33,6 +34,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (_) => QuranBloc(),
+        ),
+        BlocProvider(
+          create: (_) => QiblaBloc(),
         ),
       ],
       child: MaterialApp(
