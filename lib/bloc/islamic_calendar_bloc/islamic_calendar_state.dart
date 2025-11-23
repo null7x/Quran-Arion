@@ -56,7 +56,7 @@ class IslamicHoliday {
   final int day;
   final String description;
 
-  IslamicHoliday({
+  const IslamicHoliday({
     required this.name,
     required this.month,
     required this.day,

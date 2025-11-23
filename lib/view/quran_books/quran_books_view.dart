@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 import 'package:quran_arion/bloc/quran_bloc/quran_bloc.dart';
 import 'package:quran_arion/bloc/player_bloc/player_bloc.dart';
+import 'package:quran_arion/utils/translations.dart';
+import 'package:quran_arion/providers/app_language_provider.dart';
 import 'package:quran_arion/res/app_colors.dart';
 import 'components/quran_now_playing.dart';
 
@@ -27,7 +30,7 @@ class _QuranBooksViewState extends State<QuranBooksView> {
         backgroundColor: backgroundColor,
         elevation: 0,
         title: Text(
-          'Holy Quran Books',
+          Translations.get('holyQuranBooks'),
           style: TextStyle(
             color: lightShadowColor,
             fontSize: 24,
@@ -52,7 +55,7 @@ class _QuranBooksViewState extends State<QuranBooksView> {
               if (state.quranBooks.isEmpty) {
                 return Center(
                   child: Text(
-                    'No Quran books available',
+                    Translations.get('noQuranBooksAvailable'),
                     style: TextStyle(
                       color: lightShadowColor,
                       fontSize: 16,

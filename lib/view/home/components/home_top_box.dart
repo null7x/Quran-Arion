@@ -17,8 +17,11 @@ class HomeIntroBox extends StatelessWidget {
         width: 400,
         height: 150,
         decoration: BoxDecoration(
-          color: backgroundColor,
-          borderRadius: BorderRadius.circular(10),
+          image: DecorationImage(
+            image: AssetImage(AppImages.imageList[11] ?? 'assets/images/12.png'),
+            fit: BoxFit.cover,
+          ),
+          borderRadius: BorderRadius.circular(15),
           boxShadow: [
             BoxShadow(color: shadowColor, offset: const Offset(8, 6), blurRadius: 12),
             const BoxShadow(
@@ -28,11 +31,39 @@ class HomeIntroBox extends StatelessWidget {
         child: Stack(
           fit: StackFit.expand,
           children: [
+            // Декоративные исламские паттерны (геометрические формы)
+            Positioned(
+              right: -50,
+              top: -50,
+              child: Container(
+                width: 200,
+                height: 200,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.white.withOpacity(0.05),
+                ),
+              ),
+            ),
+            Positioned(
+              left: -30,
+              bottom: -30,
+              child: Container(
+                width: 150,
+                height: 150,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.white.withOpacity(0.03),
+                ),
+              ),
+            ),
+            // Основное содержимое
             ClipRRect(
-                borderRadius: BorderRadius.circular(10),
-                child: Image.asset(
-                  AppImages.imageList[11]!,
-                  fit: BoxFit.cover,
+                borderRadius: BorderRadius.circular(15),
+                child: BackdropFilter(
+                  filter: ImageFilter.blur(sigmaX: 0.5, sigmaY: 0.5),
+                  child: Container(
+                    color: Colors.transparent,
+                  ),
                 )),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),

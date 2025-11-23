@@ -13,14 +13,17 @@ class DbHelper
     {
       return _db;
     }
-    final directory = Platform.isAndroid
-        ? await getExternalStorageDirectory()
-        : await getApplicationSupportDirectory();
-    String path=join(directory!.path,'db');
-    var db=await openDatabase(path,version: 1,onCreate: (db, version) {
-      db.execute("CREATE TABLE Favourite(id INTEGER PRIMARY KEY, name TEXT, path TEXT, size TEXT, length TEXT, isFavourite INTEGER)");
-    },);
-    return db;
+    try {
+      final directory = await getApplicationDocumentsDirectory();
+      String path=join(directory.path,'quran_arion_db');
+      var db=await openDatabase(path,version: 1,onCreate: (db, version) {
+        db.execute("CREATE TABLE Favourite(id INTEGER PRIMARY KEY, name TEXT, path TEXT, size TEXT, length TEXT, isFavourite INTEGER)");
+      },);
+      return db;
+    } catch (e) {
+      print('Database initialization error: $e');
+      return null;
+    }
   }
   Future<AudioFile> insert(AudioFile model) async {
     var dbClient=await db;

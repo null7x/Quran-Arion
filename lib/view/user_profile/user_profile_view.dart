@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 import 'package:quran_arion/bloc/user_profile_bloc/user_profile_bloc.dart';
+import 'package:quran_arion/utils/translations.dart';
+import 'package:quran_arion/providers/app_language_provider.dart';
 import 'package:quran_arion/res/app_colors.dart';
 
 class UserProfileView extends StatefulWidget {
@@ -34,7 +37,7 @@ class _UserProfileViewState extends State<UserProfileView> {
     return Scaffold(
       backgroundColor: AppColors.blueBackground,
       appBar: AppBar(
-        title: const Text('My Profile'),
+        title: Text(Translations.get('profile')),
         backgroundColor: AppColors.backgroundColor,
         elevation: 0,
         centerTitle: true,
@@ -52,7 +55,7 @@ class _UserProfileViewState extends State<UserProfileView> {
           if (state.profile == null) {
             return Center(
               child: Text(
-                'Unable to load profile',
+                Translations.get('unableToLoadProfile'),
                 style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                       color: AppColors.lightShadowColor,
                     ),

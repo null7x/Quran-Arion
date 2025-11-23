@@ -8,7 +8,7 @@ class CachedSurah {
   final DateTime? downloadedAt;
   final int fileSizeInMB;
 
-  CachedSurah({
+  const CachedSurah({
     required this.surahNumber,
     required this.surahName,
     required this.isDownloaded,
@@ -42,7 +42,7 @@ class OfflineMode {
   final int totalCacheSizeInMB;
   final List<String> cachedQaris;
 
-  OfflineMode({
+  const OfflineMode({
     this.isOfflineEnabled = false,
     this.cachedSurahs = const [],
     this.totalCacheSizeInMB = 0,

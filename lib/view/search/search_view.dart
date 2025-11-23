@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 import 'package:quran_arion/bloc/search_bloc/search_bloc.dart';
+import 'package:quran_arion/utils/translations.dart';
+import 'package:quran_arion/providers/app_language_provider.dart';
 import 'package:quran_arion/res/app_colors.dart';
 
 class SearchView extends StatefulWidget {
@@ -30,7 +33,7 @@ class _SearchViewState extends State<SearchView> {
     return Scaffold(
       backgroundColor: AppColors.blueBackground,
       appBar: AppBar(
-        title: const Text('Search'),
+        title: Text(Translations.get('search')),
         backgroundColor: AppColors.backgroundColor,
         elevation: 0,
         centerTitle: true,
@@ -57,7 +60,7 @@ class _SearchViewState extends State<SearchView> {
                 },
                 style: TextStyle(color: AppColors.lightShadowColor),
                 decoration: InputDecoration(
-                  hintText: 'Search Surahs or Qaris...',
+                  hintText: Translations.get('searchPlaceholder'),
                   hintStyle: TextStyle(color: AppColors.shadowColor),
                   border: InputBorder.none,
                   contentPadding: const EdgeInsets.all(16),

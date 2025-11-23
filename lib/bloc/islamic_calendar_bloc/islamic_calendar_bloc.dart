@@ -139,7 +139,7 @@ class IslamicCalendarBloc extends Bloc<IslamicCalendarEvent, IslamicCalendarStat
 
     int jd = (1461 * (gy + 4800 + (gm - 14) ~/ 12)) ~/ 4 +
         (367 * (gm - 2 - 12 * (((gm - 14) ~/ 12)))) ~/ 12 -
-        (3 * (((gy + 4900 + (gm - 14) ~/ 12)) ~/ 100))) ~/ 4 +
+        (3 * ((gy + 4900 + (gm - 14) ~/ 12) ~/ 100)) ~/ 4 +
         gd -
         32045;
 

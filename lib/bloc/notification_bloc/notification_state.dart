@@ -44,7 +44,7 @@ class NotificationPreferences {
   final int notificationHours;
   final int notificationMinutes;
 
-  NotificationPreferences({
+  const NotificationPreferences({
     this.prayerNotifications = true,
     this.verseNotifications = true,
     this.generalNotifications = true,

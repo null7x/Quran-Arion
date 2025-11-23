@@ -45,10 +45,15 @@ dependencies:
   path_provider:
   path:
   permission_handler:
-  just_audio:
-  on_audio_query:
+  geolocator: ^10.1.0
+  just_audio: 0.10.5
   layout_pro:
   shimmer_effect:
+  win32: 5.15.0
+  flutter_localizations:
+    sdk: flutter
+  intl: ^0.20.2
+  provider: ^6.1.5+1
 
 dev_dependencies:
   flutter_test:
@@ -71,6 +76,9 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+
+  # Localization configuration
+  generate: true
 
   # To add assets to your application, add an assets section, like this:
   assets:

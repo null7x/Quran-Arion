@@ -7,7 +7,7 @@ class AppSettings {
   final bool notificationsEnabled;
   final bool offlineMode;
 
-  AppSettings({
+  const AppSettings({
     this.isDarkMode = false,
     this.fontSize = 16.0,
     this.language = 'en',

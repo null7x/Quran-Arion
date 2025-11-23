@@ -5,7 +5,7 @@ part 'statistics_event.dart';
 part 'statistics_state.dart';
 
 class StatisticsBloc extends Bloc<StatisticsEvent, StatisticsState> {
-  StatisticsBloc() : super(const StatisticsState()) {
+  StatisticsBloc() : super(StatisticsState(statistics: AppStatistics(lastListenDate: DateTime.now()))) {
     on<LoadStatisticsEvent>(_onLoadStatistics);
     on<RecordSurahListenEvent>(_onRecordSurahListen);
     on<IncrementDailyStreakEvent>(_onIncrementDailyStreak);

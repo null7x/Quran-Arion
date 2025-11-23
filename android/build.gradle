@@ -1,11 +1,12 @@
 buildscript {
-    ext.kotlin_version = '1.7.10'
+    ext.kotlin_version = '2.0.0'
     repositories {
         google()
         mavenCentral()
     }
 
     dependencies {
+        classpath "com.android.tools.build:gradle:8.2.1"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
@@ -16,6 +17,19 @@ allprojects {
         mavenCentral()
     }
 }
+
+// Force Java 21 for all Android projects
+subprojects { subproj ->
+    if (subproj.plugins.hasPlugin('android') || subproj.plugins.hasPlugin('com.android.library') || subproj.plugins.hasPlugin('com.android.application')) {
+        subproj.android {
+            compileOptions {
+                sourceCompatibility JavaVersion.VERSION_21
+                targetCompatibility JavaVersion.VERSION_21
+            }
+        }
+    }
+}
+
 
 rootProject.buildDir = '../build'
 subprojects {

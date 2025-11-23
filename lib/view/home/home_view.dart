@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 import 'package:quran_arion/bloc/album_bloc/album_bloc.dart';
 import 'package:quran_arion/bloc/home_bloc/home_event.dart';
+import 'package:quran_arion/utils/translations.dart';
+import 'package:quran_arion/providers/app_language_provider.dart';
 import 'package:quran_arion/view/common_widget/app_bar.dart';
 import 'package:quran_arion/view/common_widget/loading_files.dart';
 import 'package:quran_arion/view/home/components/home_top_box.dart';
@@ -62,32 +65,31 @@ class _HomeViewState extends State<HomeView> {
                           return const SongsList();
                         }
                       }
-                      return const Column(
+                      return Column(
                         children: [
-                          SizedBox(height: 20,),
+                          const SizedBox(height: 20,),
                           Row(
                             children: [
                               Text(
-                                'Album',
-                                style: TextStyle(
+                                Translations.get('library'),
+                                style: const TextStyle(
                                   color: Colors.black87,
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              Spacer(),
+                              const Spacer(),
                               InkWell(
                                 // onTap: () => Utils.go(context: context, screen: AllMusicAlbum()),
 
                                 child: Text(
-                                  'See all',
-                                  style:
-                                  TextStyle(color: Colors.grey, fontWeight: FontWeight.bold),
+                                  Translations.get('seeAll'),
+                                  style: const TextStyle(color: Colors.grey, fontWeight: FontWeight.bold),
                                 ),
                               )
                             ],
                           ),
-                          Expanded(child: FilesLoading()),
+                          const Expanded(child: FilesLoading()),
                         ],
                       );
                     },

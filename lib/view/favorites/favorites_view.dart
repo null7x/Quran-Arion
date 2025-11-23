@@ -85,7 +85,7 @@ class _FavoritesViewState extends State<FavoritesView> {
                         ),
                   ),
                   subtitle: Text(
-                    'Added: ${favorite.dateAdded.toString().split(' ')[0]}',
+                    'Added: ${favorite.addedDate.toString().split(' ')[0]}',
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
                           color: AppColors.shadowColor,
                         ),

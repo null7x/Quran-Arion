@@ -5,7 +5,7 @@ class DailyStatistics {
   final int listeningMinutes;
   final int surahsListened;
 
-  DailyStatistics({
+  const DailyStatistics({
     required this.date,
     required this.listeningMinutes,
     required this.surahsListened,
@@ -21,7 +21,7 @@ class AppStatistics {
   final List<DailyStatistics> dailyStats;
   final Map<int, int> surahPlayCounts;
 
-  AppStatistics({
+  const AppStatistics({
     this.totalSurahsListened = 0,
     this.totalListeningHours = 0,
     this.currentStreak = 0,
@@ -57,9 +57,9 @@ class StatisticsState extends Equatable {
   final Status status;
 
   const StatisticsState({
-    AppStatistics? statistics,
+    required this.statistics,
     this.status = Status.initial,
-  }) : statistics = statistics ?? AppStatistics(lastListenDate: DateTime.now());
+  });
 
   StatisticsState copyWith({
     AppStatistics? statistics,

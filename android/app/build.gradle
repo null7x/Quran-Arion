@@ -24,16 +24,17 @@ if (flutterVersionName == null) {
 
 android {
     namespace "com.null7x.quran_arion"
-    compileSdkVersion 33
+    compileSdkVersion 36
     ndkVersion flutter.ndkVersion
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_21
+        targetCompatibility JavaVersion.VERSION_21
     }
 
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = '21'
+        languageVersion = '2.0'
     }
 
     sourceSets {

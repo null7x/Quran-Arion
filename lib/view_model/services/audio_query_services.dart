@@ -3,7 +3,6 @@ import 'dart:math';
 
 import 'package:just_audio/just_audio.dart';
 import 'package:quran_arion/model/audio_file_model.dart';
-import 'package:on_audio_query/on_audio_query.dart';
 import 'package:path/path.dart' as path;
 
 import '../../utils/utils.dart';
@@ -56,14 +55,18 @@ class AudioFileQueries{
     return '$prefix:$postFix';
   }
   static Future<List<Map<String, String>>> getFolders() async {
-    List<Map<String, String>> list=[];
-    final audioQuery = OnAudioQuery();
-    List<String> folders = await audioQuery.queryAllPath();
-    for(var folder in folders){
-      list.add({
-        'path' : folder,
-        'name' : path.basename(folder)
-      });
+    List<Map<String, String>> list = [];
+    // Get common audio folders
+    try {
+      final dir = Directory('/storage/emulated/0/Music');
+      if (await dir.exists()) {
+        list.add({
+          'path': dir.path,
+          'name': 'Music'
+        });
+      }
+    } catch (e) {
+      // Handle error
     }
     return list;
   }
