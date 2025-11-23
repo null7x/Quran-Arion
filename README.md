@@ -68,7 +68,7 @@ This project uses the following dependencies:
 
 ## About Me
 
-**Developer:** Azizov Aminjon  
+**Developer:** Null7x  
 **Contact:** s985225250@gmail.com
 
 I'm a passionate Flutter developer dedicated to creating beautiful and functional Islamic applications. This project represents my commitment to leveraging modern technology to make Islamic resources more accessible to Muslims worldwide.
