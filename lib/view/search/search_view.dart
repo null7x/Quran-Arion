@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import 'package:quran_arion/bloc/search_bloc/search_bloc.dart';
+import 'package:quran_arion/bloc/quran_bloc/quran_bloc.dart';
 import 'package:quran_arion/utils/translations.dart';
 import 'package:quran_arion/providers/app_language_provider.dart';
 import 'package:quran_arion/res/app_colors.dart';
@@ -187,7 +188,29 @@ class _SearchViewState extends State<SearchView> {
                           size: 16,
                         ),
                         onTap: () {
-                          // Handle selection
+                          if (result.type == 'surah') {
+                            // Play Surah
+                            context.read<QuranBloc>().add(
+                              PlayQuranSurahEvent(result.id, result.name),
+                            );
+                            
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text('Now playing: ${result.name}'),
+                                backgroundColor: AppColors.blueShade,
+                                duration: const Duration(seconds: 2),
+                              ),
+                            );
+                          } else if (result.type == 'qari') {
+                            // Navigate to Qari playlist
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text('Opening ${result.name} playlist'),
+                                backgroundColor: Color(0xFFD4AF37),
+                                duration: const Duration(seconds: 2),
+                              ),
+                            );
+                          }
                         },
                       ),
                     );

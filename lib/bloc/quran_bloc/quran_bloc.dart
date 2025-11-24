@@ -1,11 +1,17 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:just_audio/just_audio.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 part 'quran_event.dart';
 part 'quran_state.dart';
 
 class QuranBloc extends Bloc<QuranEvent, QuranState> {
+  late AudioPlayer _audioPlayer;
+  
   QuranBloc() : super(const QuranState()) {
+    _audioPlayer = AudioPlayer();
     on<GetQuranBooksEvent>(_onGetQuranBooks);
     on<SelectQuranBookEvent>(_onSelectQuranBook);
     on<PlayQuranSurahEvent>(_onPlayQuranSurah);
@@ -272,19 +278,55 @@ class QuranBloc extends Bloc<QuranEvent, QuranState> {
 
   Future<void> _onPlayQuranSurah(
       PlayQuranSurahEvent event, Emitter<QuranState> emit) async {
-    emit(state.copyWith(
-      playingSurahNumber: event.surahNumber,
-      playingSurahName: event.surahName,
-      isPlaying: true,
-    ));
+    try {
+      emit(state.copyWith(
+        playingSurahNumber: event.surahNumber,
+        playingSurahName: event.surahName,
+        isPlaying: true,
+      ));
+
+      // Get audio URL from Al-Quran Cloud API (As-Sudais reciter)
+      final surahNumber = event.surahNumber.toString().padLeft(3, '0');
+      final audioUrl = 
+        'https://cdn.islamic.network/quran/audio/128/as-sudais/$surahNumber.mp3';
+      
+      // Set and play audio
+      await _audioPlayer.setUrl(audioUrl);
+      await _audioPlayer.play();
+      
+      // Listen to playback completion
+      _audioPlayer.playerStateStream.listen((playerState) {
+        if (playerState.processingState == ProcessingState.completed) {
+          emit(state.copyWith(isPlaying: false));
+        }
+      });
+      
+    } catch (e) {
+      emit(state.copyWith(isPlaying: false));
+    }
   }
 
   Future<void> _onStopQuranPlayback(
       StopQuranPlaybackEvent event, Emitter<QuranState> emit) async {
-    emit(state.copyWith(
-      isPlaying: false,
-      playingSurahNumber: null,
-      playingSurahName: null,
-    ));
+    try {
+      await _audioPlayer.stop();
+      emit(state.copyWith(
+        isPlaying: false,
+        playingSurahNumber: null,
+        playingSurahName: null,
+      ));
+    } catch (e) {
+      emit(state.copyWith(
+        isPlaying: false,
+        playingSurahNumber: null,
+        playingSurahName: null,
+      ));
+    }
+  }
+  
+  @override
+  Future<void> close() {
+    _audioPlayer.dispose();
+    return super.close();
   }
 }
