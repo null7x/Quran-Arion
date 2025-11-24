@@ -46,8 +46,8 @@ dependencies:
   path:
   permission_handler:
   geolocator: ^10.1.0
-  http: ^1.1.0
   just_audio: 0.10.5
+  http: ^1.1.0
   layout_pro:
   shimmer_effect:
   win32: 5.15.0

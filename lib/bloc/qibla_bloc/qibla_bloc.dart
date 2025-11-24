@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:geolocator/geolocator.dart';
 import 'dart:math';
 
 part 'qibla_event.dart';
@@ -24,6 +25,21 @@ class QiblaBloc extends Bloc<QiblaEvent, QiblaState> {
     emit(state.copyWith(status: QiblaStatus.loading));
     
     try {
+      // Получаем текущую локацию пользователя
+      try {
+        final Position? position = await _getLocationWithTimeout();
+        
+        if (position != null) {
+          userLatitude = position.latitude;
+          userLongitude = position.longitude;
+          print('📍 Got user location: $userLatitude, $userLongitude');
+        } else {
+          print('⚠️ Using default location: Moscow');
+        }
+      } catch (e) {
+        print('⚠️ Using default location: Moscow. Error: $e');
+      }
+
       // Рассчитываем направление на Каабу
       double qiblaDirection = _calculateQiblaDirection(
         userLatitude,
@@ -32,15 +48,18 @@ class QiblaBloc extends Bloc<QiblaEvent, QiblaState> {
         kaabaLongitude,
       );
 
+      print('🕌 Qibla direction calculated: $qiblaDirection°');
+
       emit(state.copyWith(
         qiblaDirection: qiblaDirection,
         isCompassAvailable: true,
         status: QiblaStatus.success,
       ));
     } catch (e) {
+      print('❌ Error in _onGetQiblaDirection: $e');
       emit(state.copyWith(
         status: QiblaStatus.error,
-        errorMessage: 'Failed to get Qibla direction',
+        errorMessage: 'Failed to get Qibla direction: $e',
       ));
     }
   }
@@ -74,5 +93,15 @@ class QiblaBloc extends Bloc<QiblaEvent, QiblaState> {
     bearing = (bearing + 360) % 360;
 
     return bearing;
+  }
+
+  Future<Position?> _getLocationWithTimeout() async {
+    try {
+      return await Geolocator.getCurrentPosition()
+          .timeout(const Duration(seconds: 10));
+    } catch (e) {
+      print('❌ Error getting location: $e');
+      return null;
+    }
   }
 }

@@ -61,7 +61,7 @@ class _PrayerTimesViewState extends State<PrayerTimesView> {
     // Get prayer times with the determined location
     if (mounted) {
       context.read<PrayerTimesBloc>().add(
-        GetPrayerTimesEvent(_latitude, _longitude),
+        GetPrayerTimesEvent(latitude: _latitude, longitude: _longitude),
       );
     }
   }

@@ -8,6 +8,8 @@ abstract class HomeEvents extends Equatable{
 }
 class GetSongEvent extends HomeEvents{}
 class GetFavSongEvent extends HomeEvents{}
+class GetAlbumsEvent extends HomeEvents{}
+
 class ChangeLoadingStatusSong extends HomeEvents{
   final Status songStatus;
   ChangeLoadingStatusSong({required this.songStatus,});

@@ -1,7 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:just_audio/just_audio.dart';
-import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 part 'quran_event.dart';
@@ -11,129 +10,145 @@ class QuranBloc extends Bloc<QuranEvent, QuranState> {
   late AudioPlayer _audioPlayer;
   
   QuranBloc() : super(const QuranState()) {
-    _audioPlayer = AudioPlayer();
+    _initializeAudioPlayer();
     on<GetQuranBooksEvent>(_onGetQuranBooks);
     on<SelectQuranBookEvent>(_onSelectQuranBook);
     on<PlayQuranSurahEvent>(_onPlayQuranSurah);
     on<StopQuranPlaybackEvent>(_onStopQuranPlayback);
   }
+  
+  void _initializeAudioPlayer() {
+    try {
+      _audioPlayer = AudioPlayer();
+      print('✅ AudioPlayer initialized successfully');
+    } catch (e) {
+      print('❌ Error initializing AudioPlayer: $e');
+    }
+  }
 
-  // Карта Сур с их аудио путями (все 114 Сур Корана)
+  // Al-Quran Cloud CDN URLs - используем онлайн API вместо локальных файлов
+  // As-Sudais reciter, 128 kbps quality
+  String _getSurahUrl(int surahNumber) {
+    String paddedNumber = surahNumber.toString().padLeft(3, '0');
+    return 'https://cdn.islamic.network/quran/audio/128/as-sudais/$paddedNumber.mp3';
+  }
+
+  // Карта Сур с их аудио URL (все 114 Сур Корана)
   final Map<int, String> surahAudioPaths = {
-    1: 'assets/audio/quran/001_al_fatihah.mp3',
-    2: 'assets/audio/quran/002_al_baqarah.mp3',
-    3: 'assets/audio/quran/003_al_imran.mp3',
-    4: 'assets/audio/quran/004_an_nisa.mp3',
-    5: 'assets/audio/quran/005_al_maidah.mp3',
-    6: 'assets/audio/quran/006_al_anam.mp3',
-    7: 'assets/audio/quran/007_al_araf.mp3',
-    8: 'assets/audio/quran/008_al_anfal.mp3',
-    9: 'assets/audio/quran/009_at_tawbah.mp3',
-    10: 'assets/audio/quran/010_yunus.mp3',
-    11: 'assets/audio/quran/011_hud.mp3',
-    12: 'assets/audio/quran/012_yusuf.mp3',
-    13: 'assets/audio/quran/013_ar_rad.mp3',
-    14: 'assets/audio/quran/014_ibrahim.mp3',
-    15: 'assets/audio/quran/015_al_hijr.mp3',
-    16: 'assets/audio/quran/016_an_nahl.mp3',
-    17: 'assets/audio/quran/017_al_isra.mp3',
-    18: 'assets/audio/quran/018_al_kahf.mp3',
-    19: 'assets/audio/quran/019_maryam.mp3',
-    20: 'assets/audio/quran/020_ta_ha.mp3',
-    21: 'assets/audio/quran/021_al_anbiya.mp3',
-    22: 'assets/audio/quran/022_al_hajj.mp3',
-    23: 'assets/audio/quran/023_al_muminum.mp3',
-    24: 'assets/audio/quran/024_an_nur.mp3',
-    25: 'assets/audio/quran/025_al_furqan.mp3',
-    26: 'assets/audio/quran/026_ash_shuara.mp3',
-    27: 'assets/audio/quran/027_an_naml.mp3',
-    28: 'assets/audio/quran/028_al_qasas.mp3',
-    29: 'assets/audio/quran/029_al_ankabut.mp3',
-    30: 'assets/audio/quran/030_ar_rum.mp3',
-    31: 'assets/audio/quran/031_luqman.mp3',
-    32: 'assets/audio/quran/032_as_sajdah.mp3',
-    33: 'assets/audio/quran/033_al_ahzab.mp3',
-    34: 'assets/audio/quran/034_saba.mp3',
-    35: 'assets/audio/quran/035_fatir.mp3',
-    36: 'assets/audio/quran/036_ya_sin.mp3',
-    37: 'assets/audio/quran/037_as_saffat.mp3',
-    38: 'assets/audio/quran/038_sad.mp3',
-    39: 'assets/audio/quran/039_az_zumar.mp3',
-    40: 'assets/audio/quran/040_ghafir.mp3',
-    41: 'assets/audio/quran/041_fussilat.mp3',
-    42: 'assets/audio/quran/042_ash_shura.mp3',
-    43: 'assets/audio/quran/043_az_zukhruf.mp3',
-    44: 'assets/audio/quran/044_ad_dukhan.mp3',
-    45: 'assets/audio/quran/045_al_jathiya.mp3',
-    46: 'assets/audio/quran/046_al_ahqaf.mp3',
-    47: 'assets/audio/quran/047_muhammad.mp3',
-    48: 'assets/audio/quran/048_al_fath.mp3',
-    49: 'assets/audio/quran/049_al_hujurat.mp3',
-    50: 'assets/audio/quran/050_qaf.mp3',
-    51: 'assets/audio/quran/051_adh_dhariyat.mp3',
-    52: 'assets/audio/quran/052_at_tur.mp3',
-    53: 'assets/audio/quran/053_an_najm.mp3',
-    54: 'assets/audio/quran/054_al_qamar.mp3',
-    55: 'assets/audio/quran/055_ar_rahman.mp3',
-    56: 'assets/audio/quran/056_al_waqiah.mp3',
-    57: 'assets/audio/quran/057_al_hadid.mp3',
-    58: 'assets/audio/quran/058_al_mujadalah.mp3',
-    59: 'assets/audio/quran/059_al_hashr.mp3',
-    60: 'assets/audio/quran/060_al_mumtahanah.mp3',
-    61: 'assets/audio/quran/061_as_saff.mp3',
-    62: 'assets/audio/quran/062_al_jumuah.mp3',
-    63: 'assets/audio/quran/063_al_munafiqun.mp3',
-    64: 'assets/audio/quran/064_at_taghabun.mp3',
-    65: 'assets/audio/quran/065_at_talaq.mp3',
-    66: 'assets/audio/quran/066_at_tahrim.mp3',
-    67: 'assets/audio/quran/067_al_mulk.mp3',
-    68: 'assets/audio/quran/068_al_qalam.mp3',
-    69: 'assets/audio/quran/069_al_haqqah.mp3',
-    70: 'assets/audio/quran/070_al_maarij.mp3',
-    71: 'assets/audio/quran/071_nuh.mp3',
-    72: 'assets/audio/quran/072_al_jinn.mp3',
-    73: 'assets/audio/quran/073_al_muzzammil.mp3',
-    74: 'assets/audio/quran/074_al_muddaththir.mp3',
-    75: 'assets/audio/quran/075_al_qiyamah.mp3',
-    76: 'assets/audio/quran/076_al_insan.mp3',
-    77: 'assets/audio/quran/077_al_mursalat.mp3',
-    78: 'assets/audio/quran/078_an_naba.mp3',
-    79: 'assets/audio/quran/079_an_naziat.mp3',
-    80: 'assets/audio/quran/080_abasa.mp3',
-    81: 'assets/audio/quran/081_at_takwir.mp3',
-    82: 'assets/audio/quran/082_al_infitar.mp3',
-    83: 'assets/audio/quran/083_al_mutaffifin.mp3',
-    84: 'assets/audio/quran/084_al_inshiqaq.mp3',
-    85: 'assets/audio/quran/085_al_buruj.mp3',
-    86: 'assets/audio/quran/086_at_tariq.mp3',
-    87: 'assets/audio/quran/087_al_ala.mp3',
-    88: 'assets/audio/quran/088_al_ghashiyah.mp3',
-    89: 'assets/audio/quran/089_al_fajr.mp3',
-    90: 'assets/audio/quran/090_al_balad.mp3',
-    91: 'assets/audio/quran/091_ash_shams.mp3',
-    92: 'assets/audio/quran/092_al_lail.mp3',
-    93: 'assets/audio/quran/093_ad_duha.mp3',
-    94: 'assets/audio/quran/094_ash_sharh.mp3',
-    95: 'assets/audio/quran/095_at_tin.mp3',
-    96: 'assets/audio/quran/096_al_alaq.mp3',
-    97: 'assets/audio/quran/097_al_qadr.mp3',
-    98: 'assets/audio/quran/098_al_bayyinah.mp3',
-    99: 'assets/audio/quran/099_az_zalzalah.mp3',
-    100: 'assets/audio/quran/100_al_adiyat.mp3',
-    101: 'assets/audio/quran/101_al_qaria.mp3',
-    102: 'assets/audio/quran/102_at_takathur.mp3',
-    103: 'assets/audio/quran/103_al_asr.mp3',
-    104: 'assets/audio/quran/104_al_humaza.mp3',
-    105: 'assets/audio/quran/105_al_fil.mp3',
-    106: 'assets/audio/quran/106_quraysh.mp3',
-    107: 'assets/audio/quran/107_al_maun.mp3',
-    108: 'assets/audio/quran/108_al_kawthar.mp3',
-    109: 'assets/audio/quran/109_al_kafirun.mp3',
-    110: 'assets/audio/quran/110_an_nasr.mp3',
-    111: 'assets/audio/quran/111_al_lahab.mp3',
-    112: 'assets/audio/quran/112_al_ikhlas.mp3',
-    113: 'assets/audio/quran/113_al_falaq.mp3',
-    114: 'assets/audio/quran/114_an_nas.mp3',
+    1: 'https://cdn.islamic.network/quran/audio/128/as-sudais/001.mp3',
+    2: 'https://cdn.islamic.network/quran/audio/128/as-sudais/002.mp3',
+    3: 'https://cdn.islamic.network/quran/audio/128/as-sudais/003.mp3',
+    4: 'https://cdn.islamic.network/quran/audio/128/as-sudais/004.mp3',
+    5: 'https://cdn.islamic.network/quran/audio/128/as-sudais/005.mp3',
+    6: 'https://cdn.islamic.network/quran/audio/128/as-sudais/006.mp3',
+    7: 'https://cdn.islamic.network/quran/audio/128/as-sudais/007.mp3',
+    8: 'https://cdn.islamic.network/quran/audio/128/as-sudais/008.mp3',
+    9: 'https://cdn.islamic.network/quran/audio/128/as-sudais/009.mp3',
+    10: 'https://cdn.islamic.network/quran/audio/128/as-sudais/010.mp3',
+    11: 'https://cdn.islamic.network/quran/audio/128/as-sudais/011.mp3',
+    12: 'https://cdn.islamic.network/quran/audio/128/as-sudais/012.mp3',
+    13: 'https://cdn.islamic.network/quran/audio/128/as-sudais/013.mp3',
+    14: 'https://cdn.islamic.network/quran/audio/128/as-sudais/014.mp3',
+    15: 'https://cdn.islamic.network/quran/audio/128/as-sudais/015.mp3',
+    16: 'https://cdn.islamic.network/quran/audio/128/as-sudais/016.mp3',
+    17: 'https://cdn.islamic.network/quran/audio/128/as-sudais/017.mp3',
+    18: 'https://cdn.islamic.network/quran/audio/128/as-sudais/018.mp3',
+    19: 'https://cdn.islamic.network/quran/audio/128/as-sudais/019.mp3',
+    20: 'https://cdn.islamic.network/quran/audio/128/as-sudais/020.mp3',
+    21: 'https://cdn.islamic.network/quran/audio/128/as-sudais/021.mp3',
+    22: 'https://cdn.islamic.network/quran/audio/128/as-sudais/022.mp3',
+    23: 'https://cdn.islamic.network/quran/audio/128/as-sudais/023.mp3',
+    24: 'https://cdn.islamic.network/quran/audio/128/as-sudais/024.mp3',
+    25: 'https://cdn.islamic.network/quran/audio/128/as-sudais/025.mp3',
+    26: 'https://cdn.islamic.network/quran/audio/128/as-sudais/026.mp3',
+    27: 'https://cdn.islamic.network/quran/audio/128/as-sudais/027.mp3',
+    28: 'https://cdn.islamic.network/quran/audio/128/as-sudais/028.mp3',
+    29: 'https://cdn.islamic.network/quran/audio/128/as-sudais/029.mp3',
+    30: 'https://cdn.islamic.network/quran/audio/128/as-sudais/030.mp3',
+    31: 'https://cdn.islamic.network/quran/audio/128/as-sudais/031.mp3',
+    32: 'https://cdn.islamic.network/quran/audio/128/as-sudais/032.mp3',
+    33: 'https://cdn.islamic.network/quran/audio/128/as-sudais/033.mp3',
+    34: 'https://cdn.islamic.network/quran/audio/128/as-sudais/034.mp3',
+    35: 'https://cdn.islamic.network/quran/audio/128/as-sudais/035.mp3',
+    36: 'https://cdn.islamic.network/quran/audio/128/as-sudais/036.mp3',
+    37: 'https://cdn.islamic.network/quran/audio/128/as-sudais/037.mp3',
+    38: 'https://cdn.islamic.network/quran/audio/128/as-sudais/038.mp3',
+    39: 'https://cdn.islamic.network/quran/audio/128/as-sudais/039.mp3',
+    40: 'https://cdn.islamic.network/quran/audio/128/as-sudais/040.mp3',
+    41: 'https://cdn.islamic.network/quran/audio/128/as-sudais/041.mp3',
+    42: 'https://cdn.islamic.network/quran/audio/128/as-sudais/042.mp3',
+    43: 'https://cdn.islamic.network/quran/audio/128/as-sudais/043.mp3',
+    44: 'https://cdn.islamic.network/quran/audio/128/as-sudais/044.mp3',
+    45: 'https://cdn.islamic.network/quran/audio/128/as-sudais/045.mp3',
+    46: 'https://cdn.islamic.network/quran/audio/128/as-sudais/046.mp3',
+    47: 'https://cdn.islamic.network/quran/audio/128/as-sudais/047.mp3',
+    48: 'https://cdn.islamic.network/quran/audio/128/as-sudais/048.mp3',
+    49: 'https://cdn.islamic.network/quran/audio/128/as-sudais/049.mp3',
+    50: 'https://cdn.islamic.network/quran/audio/128/as-sudais/050.mp3',
+    51: 'https://cdn.islamic.network/quran/audio/128/as-sudais/051.mp3',
+    52: 'https://cdn.islamic.network/quran/audio/128/as-sudais/052.mp3',
+    53: 'https://cdn.islamic.network/quran/audio/128/as-sudais/053.mp3',
+    54: 'https://cdn.islamic.network/quran/audio/128/as-sudais/054.mp3',
+    55: 'https://cdn.islamic.network/quran/audio/128/as-sudais/055.mp3',
+    56: 'https://cdn.islamic.network/quran/audio/128/as-sudais/056.mp3',
+    57: 'https://cdn.islamic.network/quran/audio/128/as-sudais/057.mp3',
+    58: 'https://cdn.islamic.network/quran/audio/128/as-sudais/058.mp3',
+    59: 'https://cdn.islamic.network/quran/audio/128/as-sudais/059.mp3',
+    60: 'https://cdn.islamic.network/quran/audio/128/as-sudais/060.mp3',
+    61: 'https://cdn.islamic.network/quran/audio/128/as-sudais/061.mp3',
+    62: 'https://cdn.islamic.network/quran/audio/128/as-sudais/062.mp3',
+    63: 'https://cdn.islamic.network/quran/audio/128/as-sudais/063.mp3',
+    64: 'https://cdn.islamic.network/quran/audio/128/as-sudais/064.mp3',
+    65: 'https://cdn.islamic.network/quran/audio/128/as-sudais/065.mp3',
+    66: 'https://cdn.islamic.network/quran/audio/128/as-sudais/066.mp3',
+    67: 'https://cdn.islamic.network/quran/audio/128/as-sudais/067.mp3',
+    68: 'https://cdn.islamic.network/quran/audio/128/as-sudais/068.mp3',
+    69: 'https://cdn.islamic.network/quran/audio/128/as-sudais/069.mp3',
+    70: 'https://cdn.islamic.network/quran/audio/128/as-sudais/070.mp3',
+    71: 'https://cdn.islamic.network/quran/audio/128/as-sudais/071.mp3',
+    72: 'https://cdn.islamic.network/quran/audio/128/as-sudais/072.mp3',
+    73: 'https://cdn.islamic.network/quran/audio/128/as-sudais/073.mp3',
+    74: 'https://cdn.islamic.network/quran/audio/128/as-sudais/074.mp3',
+    75: 'https://cdn.islamic.network/quran/audio/128/as-sudais/075.mp3',
+    76: 'https://cdn.islamic.network/quran/audio/128/as-sudais/076.mp3',
+    77: 'https://cdn.islamic.network/quran/audio/128/as-sudais/077.mp3',
+    78: 'https://cdn.islamic.network/quran/audio/128/as-sudais/078.mp3',
+    79: 'https://cdn.islamic.network/quran/audio/128/as-sudais/079.mp3',
+    80: 'https://cdn.islamic.network/quran/audio/128/as-sudais/080.mp3',
+    81: 'https://cdn.islamic.network/quran/audio/128/as-sudais/081.mp3',
+    82: 'https://cdn.islamic.network/quran/audio/128/as-sudais/082.mp3',
+    83: 'https://cdn.islamic.network/quran/audio/128/as-sudais/083.mp3',
+    84: 'https://cdn.islamic.network/quran/audio/128/as-sudais/084.mp3',
+    85: 'https://cdn.islamic.network/quran/audio/128/as-sudais/085.mp3',
+    86: 'https://cdn.islamic.network/quran/audio/128/as-sudais/086.mp3',
+    87: 'https://cdn.islamic.network/quran/audio/128/as-sudais/087.mp3',
+    88: 'https://cdn.islamic.network/quran/audio/128/as-sudais/088.mp3',
+    89: 'https://cdn.islamic.network/quran/audio/128/as-sudais/089.mp3',
+    90: 'https://cdn.islamic.network/quran/audio/128/as-sudais/090.mp3',
+    91: 'https://cdn.islamic.network/quran/audio/128/as-sudais/091.mp3',
+    92: 'https://cdn.islamic.network/quran/audio/128/as-sudais/092.mp3',
+    93: 'https://cdn.islamic.network/quran/audio/128/as-sudais/093.mp3',
+    94: 'https://cdn.islamic.network/quran/audio/128/as-sudais/094.mp3',
+    95: 'https://cdn.islamic.network/quran/audio/128/as-sudais/095.mp3',
+    96: 'https://cdn.islamic.network/quran/audio/128/as-sudais/096.mp3',
+    97: 'https://cdn.islamic.network/quran/audio/128/as-sudais/097.mp3',
+    98: 'https://cdn.islamic.network/quran/audio/128/as-sudais/098.mp3',
+    99: 'https://cdn.islamic.network/quran/audio/128/as-sudais/099.mp3',
+    100: 'https://cdn.islamic.network/quran/audio/128/as-sudais/100.mp3',
+    101: 'https://cdn.islamic.network/quran/audio/128/as-sudais/101.mp3',
+    102: 'https://cdn.islamic.network/quran/audio/128/as-sudais/102.mp3',
+    103: 'https://cdn.islamic.network/quran/audio/128/as-sudais/103.mp3',
+    104: 'https://cdn.islamic.network/quran/audio/128/as-sudais/104.mp3',
+    105: 'https://cdn.islamic.network/quran/audio/128/as-sudais/105.mp3',
+    106: 'https://cdn.islamic.network/quran/audio/128/as-sudais/106.mp3',
+    107: 'https://cdn.islamic.network/quran/audio/128/as-sudais/107.mp3',
+    108: 'https://cdn.islamic.network/quran/audio/128/as-sudais/108.mp3',
+    109: 'https://cdn.islamic.network/quran/audio/128/as-sudais/109.mp3',
+    110: 'https://cdn.islamic.network/quran/audio/128/as-sudais/110.mp3',
+    111: 'https://cdn.islamic.network/quran/audio/128/as-sudais/111.mp3',
+    112: 'https://cdn.islamic.network/quran/audio/128/as-sudais/112.mp3',
+    113: 'https://cdn.islamic.network/quran/audio/128/as-sudais/113.mp3',
+    114: 'https://cdn.islamic.network/quran/audio/128/as-sudais/114.mp3',
   };
 
   Future<void> _onGetQuranBooks(
@@ -168,7 +183,7 @@ class QuranBloc extends Bloc<QuranEvent, QuranState> {
         'Al-Muminum (The Believers)',
         'An-Nur (The Light)',
         'Al-Furqan (The Criterion)',
-        'Ash-Shuara (The Poets)',
+        'Ash-Shuera (The Poets)',
         'An-Naml (The Ant)',
         'Al-Qasas (The Stories)',
         'Al-Ankabut (The Spider)',
@@ -279,29 +294,62 @@ class QuranBloc extends Bloc<QuranEvent, QuranState> {
   Future<void> _onPlayQuranSurah(
       PlayQuranSurahEvent event, Emitter<QuranState> emit) async {
     try {
+      print('🎵 Playing Surah #${event.surahNumber}: ${event.surahName}');
+      
+      // Update state immediately
       emit(state.copyWith(
         playingSurahNumber: event.surahNumber,
         playingSurahName: event.surahName,
         isPlaying: true,
       ));
 
-      // Get audio URL from Al-Quran Cloud API (As-Sudais reciter)
-      final surahNumber = event.surahNumber.toString().padLeft(3, '0');
-      final audioUrl = 
-        'https://cdn.islamic.network/quran/audio/128/as-sudais/$surahNumber.mp3';
-      
-      // Set and play audio
-      await _audioPlayer.setUrl(audioUrl);
-      await _audioPlayer.play();
-      
-      // Listen to playback completion
-      _audioPlayer.playerStateStream.listen((playerState) {
-        if (playerState.processingState == ProcessingState.completed) {
-          emit(state.copyWith(isPlaying: false));
+      // Stop previous playback
+      try {
+        if (_audioPlayer.playing) {
+          await _audioPlayer.stop();
+          print('⏹️ Stopped previous playback');
         }
-      });
+      } catch (e) {
+        print('⚠️ Error stopping previous playback: $e');
+      }
+
+      // Construct audio URL
+      final surahNumber = event.surahNumber.toString().padLeft(3, '0');
+      final audioUrl = 'https://cdn.islamic.network/quran/audio/128/as-sudais/$surahNumber.mp3';
       
-    } catch (e) {
+      print('🔗 URL: $audioUrl');
+      print('⏳ Loading audio...');
+      
+      // Try to set and play audio using AudioSource.uri for better compatibility
+      try {
+        // Use AudioSource.uri which handles URL streams better than setUrl
+        await _audioPlayer.setAudioSource(
+          AudioSource.uri(Uri.parse(audioUrl)),
+          preload: false,
+        );
+        print('✅ Audio loaded');
+        
+        // Start playback
+        await _audioPlayer.play();
+        print('▶️ Playback started');
+        
+        // Monitor playback state
+        _audioPlayer.playerStateStream.listen((playerState) {
+          print('📊 Playback state: ${playerState.processingState}');
+          if (playerState.processingState == ProcessingState.completed) {
+            print('✅ Playback completed');
+            emit(this.state.copyWith(isPlaying: false));
+          }
+        });
+        
+      } catch (playError) {
+        print('❌ Playback error: $playError');
+        emit(state.copyWith(isPlaying: false));
+      }
+      
+    } catch (e, stackTrace) {
+      print('❌ Error in _onPlayQuranSurah: $e');
+      print('Stack trace: $stackTrace');
       emit(state.copyWith(isPlaying: false));
     }
   }
@@ -322,11 +370,5 @@ class QuranBloc extends Bloc<QuranEvent, QuranState> {
         playingSurahName: null,
       ));
     }
-  }
-  
-  @override
-  Future<void> close() {
-    _audioPlayer.dispose();
-    return super.close();
   }
 }

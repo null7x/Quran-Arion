@@ -4,14 +4,14 @@ abstract class UserProfileEvent extends Equatable {
   const UserProfileEvent();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class LoadUserProfileEvent extends UserProfileEvent {
   const LoadUserProfileEvent();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class UpdateUserProfileEvent extends UserProfileEvent {
@@ -24,12 +24,21 @@ class UpdateUserProfileEvent extends UserProfileEvent {
   });
 
   @override
-  List<Object> get props => [name, email];
+  List<Object?> get props => [name, email];
+}
+
+class UploadProfilePhotoEvent extends UserProfileEvent {
+  final String imagePath;
+  
+  const UploadProfilePhotoEvent(this.imagePath);
+
+  @override
+  List<Object?> get props => [imagePath];
 }
 
 class ResetStatisticsEvent extends UserProfileEvent {
   const ResetStatisticsEvent();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }

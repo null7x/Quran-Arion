@@ -19,6 +19,7 @@ class HomeBloc extends Bloc<HomeEvents,HomeState>{
     on(_onLoadingFavStatus);
     on(_onAddToFavEvent);
     on(_onAddToAlbumEvent);
+    on(_onGetAlbumsEvent);
   }
   Future<void> _onSongFileEvent(GetSongEvent event,Emitter<HomeState> emit) async {
     add(ChangeLoadingStatusSong(songStatus: Status.loading,));
@@ -81,5 +82,48 @@ class HomeBloc extends Bloc<HomeEvents,HomeState>{
     }
 
   }
+
+  Future<void> _onGetAlbumsEvent(GetAlbumsEvent event, Emitter<HomeState> emit) async {
+    try {
+      // Demo albums data
+      final demoAlbums = [
+        Album(
+          id: '1',
+          name: 'Islamic Recitations',
+          artist: 'Various Reciters',
+          songCount: 25,
+          coverUrl: '📚',
+        ),
+        Album(
+          id: '2',
+          name: 'Quran Audio',
+          artist: 'As-Sudais',
+          songCount: 114,
+          coverUrl: '🕌',
+        ),
+        Album(
+          id: '3',
+          name: 'Duas & Adhkar',
+          artist: 'Islamic Scholars',
+          songCount: 50,
+          coverUrl: '🤲',
+        ),
+        Album(
+          id: '4',
+          name: 'Prayer Times',
+          artist: 'Daily Reminders',
+          songCount: 5,
+          coverUrl: '⏰',
+        ),
+      ];
+
+      emit(state.copyWith(albums: demoAlbums));
+      print('✅ Albums loaded: ${demoAlbums.length}');
+    } catch (e) {
+      print('❌ Error loading albums: $e');
+      emit(state.copyWith(albums: []));
+    }
+  }
+
   List<Object> get props=>[songList,favouriteSongs];
 }

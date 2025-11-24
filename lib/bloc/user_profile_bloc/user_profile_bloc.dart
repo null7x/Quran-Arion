@@ -8,6 +8,7 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
   UserProfileBloc() : super(const UserProfileState()) {
     on<LoadUserProfileEvent>(_onLoadUserProfile);
     on<UpdateUserProfileEvent>(_onUpdateUserProfile);
+    on<UploadProfilePhotoEvent>(_onUploadProfilePhoto);
     on<ResetStatisticsEvent>(_onResetStatistics);
   }
 
@@ -56,6 +57,32 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
         status: Status.complete,
       ));
     } catch (e) {
+      emit(state.copyWith(status: Status.error));
+    }
+  }
+
+  Future<void> _onUploadProfilePhoto(
+      UploadProfilePhotoEvent event, Emitter<UserProfileState> emit) async {
+    emit(state.copyWith(status: Status.loading));
+
+    try {
+      // Сохраняем путь к фото
+      print('📸 Uploading profile photo from: ${event.imagePath}');
+      
+      await Future.delayed(const Duration(milliseconds: 500));
+
+      final updatedProfile = state.profile?.copyWith(
+        photoPath: event.imagePath,
+      );
+
+      emit(state.copyWith(
+        profile: updatedProfile,
+        status: Status.complete,
+      ));
+      
+      print('✅ Profile photo uploaded successfully');
+    } catch (e) {
+      print('❌ Error uploading profile photo: $e');
       emit(state.copyWith(status: Status.error));
     }
   }

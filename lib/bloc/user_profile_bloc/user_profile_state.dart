@@ -9,6 +9,7 @@ class UserProfile {
   final int currentStreak;
   final DateTime joinDate;
   final List<int> recentlyPlayed;
+  final String? photoPath;
 
   UserProfile({
     required this.name,
@@ -19,6 +20,7 @@ class UserProfile {
     required this.currentStreak,
     required this.joinDate,
     required this.recentlyPlayed,
+    this.photoPath,
   });
 
   UserProfile copyWith({
@@ -30,6 +32,7 @@ class UserProfile {
     int? currentStreak,
     DateTime? joinDate,
     List<int>? recentlyPlayed,
+    String? photoPath,
   }) {
     return UserProfile(
       name: name ?? this.name,
@@ -40,6 +43,7 @@ class UserProfile {
       currentStreak: currentStreak ?? this.currentStreak,
       joinDate: joinDate ?? this.joinDate,
       recentlyPlayed: recentlyPlayed ?? this.recentlyPlayed,
+      photoPath: photoPath ?? this.photoPath,
     );
   }
 }
